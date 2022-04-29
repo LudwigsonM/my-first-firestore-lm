@@ -1,6 +1,6 @@
-const admin = require("firebase-admin");
+import admin from "firebase-admin";
 
-const serviceAccount = require('./credentials.json');
+import serviceAccount from './credentials.json';
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -37,3 +37,4 @@ async function addRestaurant(data) {
     }
 }
 addRestaurant(restaurant2)
+
