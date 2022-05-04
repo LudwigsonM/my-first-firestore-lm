@@ -1,25 +1,17 @@
-import admin from "firebase-admin";
+import { restaurantsCol } from "./connectDb.js"
 
-import serviceAccount from './credentials.json';
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
-const db = admin.firestore();
-
-const restaurant = {
+const restaurant = {   // creating an object  -- in this case a specific restaurant we want to add to our database
     name: 'Mister 01',
     address: '555 Federal Hwy',
     cuisine: 'Pizza',
     rating: 4.9,
     phone: '(786) 677-2903'
-}
+} 
 
-db.collection('restaurants')
-    .add(restaurant)
-    .then(doc => console.log('Created restaurant', doc.id))
-    .catch(err => console.error(err))
+restaurantsCol             
+    .add(restaurant)    // adding the restaurant to our restaurant collection
+    .then(doc => console.log('Created restaurant', doc.id)) // handle resolve
+    .catch(err => console.error(err)) // handle reject
 
 const restaurant2 = {
     name: 'Bolay',
@@ -30,10 +22,10 @@ const restaurant2 = {
 
 async function addRestaurant(data) {
     try {
-    const doc = await db.collection('restaurants').add(data)
+    const doc = await restaurantsCol.add(data) // add restaurant to collection
     console.log('Created restaurant',doc.id)
     } catch(err) {
-        console.err(err)
+        console.err(err) // handle reject
     }
 }
 addRestaurant(restaurant2)
